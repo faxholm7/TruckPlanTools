@@ -5,7 +5,7 @@ The domain in the described task is only a small slice, therefore the domain mod
 
 A GPS tracker and a truck can be independent, if a tracker is broken the ID it emits will properly change. Because of this a truck and a GPS tracker is two separate entities.
 
-A TruckPlan can be made in advance and will still be saved once they are finished.
+A TruckPlan can be made in advance and will still be saved once it's are finished.
 
 A TruckPlan will always have a shipment.
 
