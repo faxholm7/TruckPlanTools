@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TruckPlanTools.Models;
 
-namespace TruckPlanTools.Interfaces
+namespace TruckPlanTools.Interfaces.Repository
 {
     internal interface IRepository<T> where T : EntityId
     {

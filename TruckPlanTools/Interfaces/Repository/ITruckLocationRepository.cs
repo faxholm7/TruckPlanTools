@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using TruckPlanTools.Models;
 
-namespace TruckPlanTools.Interfaces
+namespace TruckPlanTools.Interfaces.Repository
 {
     internal interface ITruckLocationRepository : IRepository<TruckLocation>
     {
-        TruckLocation GetPreviousLocationByTruckPlanId(Guid truckPlanId);   
+        TruckLocation GetPreviousLocationByTruckPlanId(Guid truckPlanId);
     }
 }

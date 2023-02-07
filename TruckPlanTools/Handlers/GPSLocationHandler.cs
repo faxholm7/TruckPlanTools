@@ -1,16 +1,12 @@
 ﻿using GeoCoordinatePortable;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Diagnostics.Metrics;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TruckPlanTools.Interfaces;
+using System.Net.Http.Json;
+using TruckPlanTools.Interfaces.Repository;
+using TruckPlanTools.Interfaces.Services;
 using TruckPlanTools.Models;
-using TruckPlanTools.Repository;
+using TruckPlanTools.Models.API;
+using TruckPlanTools.Services;
 
 namespace TruckPlanTools.Handlers
 {
@@ -25,16 +21,19 @@ namespace TruckPlanTools.Handlers
         private readonly IGPSTrackerRepository _gpsTrackerRepository;
         private readonly ITruckPlanRepository _truckPlanRepository;
         private readonly ITruckLocationRepository _truckLocationRepository;
+        private readonly IGeolocationService _geolocationService;
         private readonly ILogger<GPSLocationEventHandler> _logger;
 
         public GPSLocationEventHandler(IGPSTrackerRepository gpsTrackerRepository,
             ITruckPlanRepository truckPlanRepository,
             ITruckLocationRepository truckLocationRepository,
+            IGeolocationService geolocationService,
             ILogger<GPSLocationEventHandler> logger)
         {
             _gpsTrackerRepository = gpsTrackerRepository;
             _truckPlanRepository = truckPlanRepository;
             _truckLocationRepository = truckLocationRepository;
+            _geolocationService = geolocationService;
             _logger = logger;
         }
 
@@ -73,8 +72,17 @@ namespace TruckPlanTools.Handlers
                 var startLongitude = GetLongitudeFromStringCordinate(activeTruckPlan.StartCordinate);
                 distance = CalculateDistanceInKM(currentLatitude, currentLongitude, startLatitude, startLongitude);
             }
-                
-            var currentCountry = GetCountry(@event.Cordinate);
+
+            var currentCountry = string.Empty;
+            try
+            {
+                currentCountry = _geolocationService.GetCountryFromCordinate(@event.Cordinate);
+            }
+            catch(Exception e)
+            {
+                _logger.LogError(e.ToString());
+                currentCountry = "N/A";
+            }
 
             var truckLocation = new TruckLocation(activeTruckPlan.Id, DateTime.UtcNow, currentLatitude, currentLongitude, currentCountry, distance);
             _truckLocationRepository.Add(truckLocation);
@@ -83,11 +91,6 @@ namespace TruckPlanTools.Handlers
             _truckLocationRepository.Update(truckLocation);
         }
 
-        private string GetCountry(string cordinate)
-        {
-            //Ommited
-            return "Germany";
-        }
         public double CalculateDistanceInKM(double currentLatitude, double currentLongitude, TruckLocation truckLocation)
         {
             return CalculateDistanceInKM(currentLatitude, currentLongitude,

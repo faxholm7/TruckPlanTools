@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TruckPlanTools.Interfaces;
+using TruckPlanTools.Interfaces.Repository;
 using TruckPlanTools.Models;
 
 namespace TruckPlanTools.Repository
@@ -26,7 +26,6 @@ namespace TruckPlanTools.Repository
         public T GetById(Guid id)
         {
             return _collection.FirstOrDefault(x => x.Id == id);
-
         }
 
         public void Update(T entity)
