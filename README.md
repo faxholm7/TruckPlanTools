@@ -9,13 +9,11 @@ A TruckPlan can be made in advance and will still be saved once it's are finishe
 
 A TruckPlan will always have a shipment.
 
-Shipments can have different priorties. These are set when the shipment is created.
+Shipments can have different priorities. These are set when the shipment is created.
 
 When a truck arrives at its destination it will be shut off, and that will stop in GPS tracker.
 
 ## Left out of scope:
-Task 3, but the functionality could have been made with OpenCage’s API. Using a GET request to their API with the API key and the specific coordinates, would have resulted in a model that would contain the country. 
-Another solution could have been to have a DB of cities with their respective cordites, whenever a GPSLocationEvent was handled it would look up to find the coordinate closest to the event coordinate. This solution would eliminate having an external service, but could come with some uncertainty, with driving near boarder. Depending on how the solution was implemented, performance could be a challenge as well.
 
 Task 4, the solution has been added if the entire solution was done with a relational database, but when the fake DB is made with collections the LINQ equivalent could take up quite a long time.
 
@@ -23,3 +21,6 @@ At the moment there is no was to either create or finish a TruckPlan, because of
 
 # Domain model
 ![Domain model](https://user-images.githubusercontent.com/84728646/217355268-2666aa7a-ccfc-4ba1-909d-f3e78998a596.png)
+
+#Other thoughts
+OpenCage API is used to retrieve the country for specified coordinates, another way this could have been solved would to have a list of cites with their respective coordinates stored. When a new GPSLocationEvent was handled it would look up to find the coordinate closest to the event coordinate. This solution would eliminate having an external service, but could come with some uncertainty, with driving near boarder. Depending on how the solution was implemented, performance could be a challenge as well.
