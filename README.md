@@ -18,6 +18,7 @@ Task 3, but the functionality could have been made with OpenCage’s API. Using 
 Another solution could have been to have a DB of cities with their respective cordites, whenever a GPSLocationEvent was handled it would look up to find the coordinate closest to the event coordinate. This solution would eliminate having an external service, but could come with some uncertainty, with driving near boarder. Depending on how the solution was implemented, performance could be a challenge as well.
 
 Task 4, the solution has been added if the entire solution was done with a relational database, but when the fake DB is made with collections the LINQ equivalent could take up quite a long time.
+
 At the moment there is no was to either create or finish a TruckPlan, because of the last assumption, the TruckPlan can not be automatically finished when the truck arrives, because the tracker might not get to send the event before the truck and the tracker is turned off. When the TruckPlan is created in the system it would be created in the DB. A TruckArrivalEvent and handler could be added, in this the current plan would change status and the distance between the last location and the end coordinate would be added to TotalDistanceKM, also the trucks TotalKM would be updated.
 
 # Domain model
