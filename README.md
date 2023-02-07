@@ -22,5 +22,5 @@ At the moment there is no was to either create or finish a TruckPlan, because of
 # Domain model
 ![Domain model](https://user-images.githubusercontent.com/84728646/217355268-2666aa7a-ccfc-4ba1-909d-f3e78998a596.png)
 
-#Other thoughts
+# Other thoughts
 OpenCage API is used to retrieve the country for specified coordinates, another way this could have been solved would to have a list of cites with their respective coordinates stored. When a new GPSLocationEvent was handled it would look up to find the coordinate closest to the event coordinate. This solution would eliminate having an external service, but could come with some uncertainty, with driving near boarder. Depending on how the solution was implemented, performance could be a challenge as well.
