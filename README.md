@@ -2,11 +2,12 @@
 
 ## Assumptions:
 The domain in the described task is only a small slice, therefore the domain model/entities have created with the thoughts below.
+
 A GPS tracker and a truck can be independent, if a tracker is broken the ID it emits will properly change. Because of this a truck and a GPS tracker is two separate entities.
+
 A TruckPlan can be made in advance, therefore it has the enum field Status, so that the plans can be separated on weather they are created in advance, is active and if they are finished
-To keep track of the milage/total amount driven on each truck, the truck entity has a 
 A TruckPlan will always have a shipment, so therefore the shipment is a separate entity. 
-	Because shipments can have different priorities this is saved in a enum.
+Because shipments can have different priorities this is saved in a enum.
 When a truck arrives at its destination it will be shut off, and that will stop in GPS tracker.
 
 ## Left out of scope:
